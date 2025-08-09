@@ -1,0 +1,184 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض فلاتر النصوص</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --accent-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Tahoma', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            color: var(--dark-color);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .filter-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .filter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .filter-title {
+            color: var(--primary-color);
+            border-bottom: 2px dashed var(--light-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        .original-value {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 3px solid #ddd;
+        }
+        
+        .filter-result {
+            font-size: 1.2em;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 3px solid var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .filter-description {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>تجربة فلاتر النصوص في Django</h1>
+            <p>عرض جميع الفلاتر المطبقة على النص</p>
+        </header>
+        
+        <div class="filter-grid">
+            <!-- فلتر default -->
+            <div class="filter-card">
+                <h3 class="filter-title">فلتر Default</h3>
+                <div class="original-value">النص الأصلي: {{fname|default:"(فارغ)"}}</div>
+                <div class="filter-result">{{fname|default:'hashed'}}</div>
+                <p class="filter-description">يعرض قيمة افتراضية إذا كان المتغير غير معرّف أو فارغ</p>
+            </div>
+            
+            <!-- فلتر upper -->
+            <div class="filter-card">
+                <h3 class="filter-title">فلتر Upper</h3>
+                <div class="original-value">النص الأصلي: {{fname}}</div>
+                <div class="filter-result">{{fname|upper}}</div>
+                <p class="filter-description">يحول جميع الأحرف إلى كبيرة</p>
+            </div>
+            
+            <!-- فلتر lower -->
+            <div class="filter-card">
+                <h3 class="filter-title">فلتر Lower</h3>
+                <div class="original-value">النص الأصلي: {{fname}}</div>
+                <div class="filter-result">{{fname|lower}}</div>
+                <p class="filter-description">يحول جميع الأحرف إلى صغيرة</p>
+            </div>
+            
+            <!-- فلتر capfirst -->
+            <div class="filter-card">
+                <h3 class="filter-title">فلتر Capfirst</h3>
+                <div class="original-value">النص الأصلي: {{fname}}</div>
+                <div class="filter-result">{{fname|capfirst}}</div>
+                <p class="filter-description">يحول الحرف الأول فقط إلى كبير</p>
+            </div>
+            
+            <!-- فلتر length -->
+            <div class="filter-card">
+                <h3 class="filter-title">فلتر Length</h3>
+                <div class="original-value">النص الأصلي: {{fname}}</div>
+                <div class="filter-result">{{fname|length}}</div>
+                <p class="filter-description">يعرض طول النص بعدد الأحرف</p>
+            </div>
+            
+            <!-- فلتر slice -->
+            <div class="filter-card">
+                <h3 class="filter-title">فلتر Slice</h3>
+                <div class="original-value">النص الأصلي: {{fname}}</div>
+                <div class="filter-result">{{fname|slice:":2"}}</div>
+                <p class="filter-description">يقطع النص ويظهر الجزء المحدد</p>
+            </div>
+            
+            <!-- فلتر add -->
+            <div class="filter-card">
+                <h3 class="filter-title">فلتر Add</h3>
+                <div class="original-value">النص الأصلي: {{fname}}</div>
+                <div class="filter-result">{{fname|add:' hashed'}}</div>
+                <p class="filter-description">يضيف نصًا إلى النص الأصلي</p>
+            </div>
+            
+            <!-- الفلتر المخصص name_encoder -->
+            <div class="filter-card" style="border-top-color: var(--accent-color);">
+                <h3 class="filter-title">الفلتر المخصص: Name Encoder</h3>
+                <div class="original-value">النص الأصلي: {{fname}}</div>
+                <div class="filter-result">{{fname|name_encoder}}</div>
+                <p class="filter-description">يقوم بتشفير الاسم بطريقة مميزة</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>تم التطوير باستخدام Django &bull; جميع الحقوق محفوظة &copy; {% now "Y" %}</p>
+        </footer>
+    </div>
+</body>
+</html>

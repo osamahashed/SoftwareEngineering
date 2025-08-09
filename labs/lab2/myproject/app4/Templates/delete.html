@@ -1,0 +1,133 @@
+(% extends 'base.html' %)
+    (% block title %) Delete page (% endblock %)
+
+<div class="delete-container">
+    <div class="delete-box">
+        <h2 class="delete-title">
+            <i class="fas fa-trash-alt"></i> حذف طالب
+        </h2>
+        
+        <div class="delete-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>هل أنت متأكد من رغبتك في حذف هذا الطالب؟</span>
+        </div>
+        
+        <div class="student-info">
+            <div class="info-row">
+                <span class="info-label">الاسم:</span>
+                <span class="info-value">{{ student.name }}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">الرقم:</span>
+                <span class="info-value">{{ student.id }}</span>
+            </div>
+        </div>
+        
+        <form method="POST" class="delete-form">
+            {% csrf_token %}
+            <button type="submit" class="delete-btn confirm-btn">
+                <i class="fas fa-check"></i> تأكيد الحذف
+            </button>
+            <a href="{% url 'home' %}" class="delete-btn cancel-btn">
+                <i class="fas fa-times"></i> إلغاء
+            </a>
+        </form>
+    </div>
+</div>
+
+<style>
+    .delete-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+    
+    .delete-box {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding: 25px;
+        border-top: 4px solid #e74c3c;
+    }
+    
+    .delete-title {
+        color: #e74c3c;
+        text-align: center;
+        margin: 0 0 25px 0;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .delete-warning {
+        background: #fff3cd;
+        color: #856404;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .student-info {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 25px;
+    }
+    
+    .info-row {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    
+    .info-label {
+        font-weight: bold;
+        width: 80px;
+    }
+    
+    .info-value {
+        color: #3498db;
+    }
+    
+    .delete-form {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    
+    .delete-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+        transition: all 0.3s;
+    }
+    
+    .confirm-btn {
+        background: #e74c3c;
+        color: white;
+    }
+    
+    .confirm-btn:hover {
+        background: #c0392b;
+    }
+    
+    .cancel-btn {
+        background: #95a5a6;
+        color: white;
+        text-decoration: none;
+    }
+    
+    .cancel-btn:hover {
+        background: #7f8c8d;
+    }
+</style>
+(% endblock %)

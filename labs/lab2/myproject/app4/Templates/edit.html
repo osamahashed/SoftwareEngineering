@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل بيانات الطالب</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: var(--dark-gray);
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--light-gray);
+            border-radius: 6px;
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .result {
+            padding: 10px 15px;
+            background: white;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .excellent { border-left-color: var(--secondary-color); }
+        .very-good { border-left-color: #f39c12; }
+        .good { border-left-color: var(--primary-color); }
+        
+        .marks-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .mark-item {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subject {
+            font-weight: bold;
+            color: var(--dark-gray);
+        }
+        
+        .mark {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .back-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .marks-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>تعديل بيانات الطالب</h1>
+        
+        <div class="section">
+            <h3>التقييم (شرط if)</h3>
+            {% if total > 250 %}
+            <div class="result excellent">ممتاز</div>
+            {% endif %}
+        </div>
+        
+        <div class="section">
+            <h3>التقييم (شرط if-else)</h3>
+            {% if total > 250 %}
+            <div class="result excellent">ممتاز</div>
+            {% else %}
+            <div class="result good">جيد</div>
+            {% endif %}
+        </div>
+        
+        <div class="section">
+            <h3>التقييم (شرط if-elif-else)</h3>
+            {% if total > 250 %}
+            <div class="result excellent">ممتاز</div>
+            {% elif total < 250 and total > 200 %}
+            <div class="result very-good">جيد جداً</div>
+            {% else %}
+            <div class="result good">جيد</div>
+            {% endif %}
+        </div>
+        
+        <div class="section">
+            <h3>الدرجات (حلقة for)</h3>
+            <div class="marks-list">
+                {% for sub, mark in marks.items %}
+                <div class="mark-item">
+                    <span class="subject">{{ sub }}</span>: 
+                    <span class="mark">{{ mark }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <a href="{% url 'home' %}" class="back-btn">العودة للصفحة الرئيسية</a>
+    </div>
+</body>
+</html>
